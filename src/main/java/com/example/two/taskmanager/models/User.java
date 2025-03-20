@@ -39,7 +39,7 @@ public class User {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    Set<Role> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     //Constructor
     public User(Long id, String name, String surname, String email, String password, String passwordConfirm) {
@@ -49,7 +49,6 @@ public class User {
         this.email=email;
         this.password=password;
         this.passwordConfirm=passwordConfirm;
-        roles.add(Role.USER);
     }
 
     public User() {
