@@ -16,7 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Size(min = 2, message = "Polje ime mora biti izmeđi 2 i 20 znakova.")
     @NotBlank(message = "Polje ime je obavezno")
@@ -56,7 +56,7 @@ public class User {
     }
 
     //Getter and Setter
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

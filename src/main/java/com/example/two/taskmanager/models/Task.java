@@ -30,6 +30,10 @@ public class Task {
     @Enumerated(EnumType.STRING)
     @Column Status status;
 
+    public Task() {
+
+    }
+
     public enum Status{
         STARTED,
         SUSPENDED,
