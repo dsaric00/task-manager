@@ -11,9 +11,12 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private Long Id;
 
    //Povezati user tablicu s ovom tablicom Many to one
+    @ManyToOne
+    @JoinColumn(name ="user_id", nullable = false)
+    private User user;
 
     @Column(name ="title")
     private String title;
@@ -41,7 +44,7 @@ public class Task {
         COMPLETED
     }
 
-    public Task(int Id,String title, String description, LocalDate StartDate, LocalDate EndDate, Status status){
+    public Task(Long Id,String title, String description, LocalDate StartDate, LocalDate EndDate, Status status){
         this.Id=Id;
         this.title=title;
         this.description=description;
@@ -50,11 +53,11 @@ public class Task {
         this.status=status;
     }
 
-    public int getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         Id = id;
     }
 
