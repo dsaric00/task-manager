@@ -44,13 +44,22 @@ public class Task {
         COMPLETED
     }
 
-    public Task(Long Id,String title, String description, LocalDate StartDate, LocalDate EndDate, Status status){
+    public Task(User user, Long Id,String title, String description, LocalDate StartDate, LocalDate EndDate, Status status){
+        this.user=user;
         this.Id=Id;
         this.title=title;
         this.description=description;
         this.StartDate=StartDate;
         this.EndDate=EndDate;
         this.status=status;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

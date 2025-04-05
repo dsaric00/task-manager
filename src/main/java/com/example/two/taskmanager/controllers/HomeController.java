@@ -14,4 +14,13 @@ public class HomeController {
     public ResponseEntity<String> home() {
         return ResponseEntity.ok("Spring Boot aplikacija radi! 🚀");
     }
+
+    /*@GetMapping("/")
+    public String home() {
+        return "frontPage/index";
+    }*/
+
+
+
+
 }
