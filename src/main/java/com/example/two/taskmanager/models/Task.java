@@ -25,7 +25,7 @@ public class Task {
     private String description;
 
     @Column(name ="start_date")
-    private LocalDate StartDate;
+    private LocalDate startDate;
 
     @Column(name="end_date")
     private LocalDate EndDate;
@@ -49,10 +49,11 @@ public class Task {
         this.Id=Id;
         this.title=title;
         this.description=description;
-        this.StartDate=StartDate;
+        this.startDate=StartDate;
         this.EndDate=EndDate;
         this.status=status;
     }
+
 
     public User getUser() {
         return user;
@@ -87,11 +88,11 @@ public class Task {
     }
 
     public LocalDate getStartDate() {
-        return StartDate;
+        return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        StartDate = startDate;
+    public void setStartDate(LocalDate StartDate) {
+        startDate = StartDate;
     }
 
     public LocalDate getEndDate() {

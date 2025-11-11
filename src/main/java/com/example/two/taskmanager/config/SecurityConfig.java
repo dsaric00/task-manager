@@ -1,6 +1,7 @@
 package com.example.two.taskmanager.config;
 
 
+import com.example.two.taskmanager.services.UserDetailsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +24,8 @@ public class SecurityConfig {
     DataSource dataSource;
 
     @Bean
-    public UserDetailsService userDetailsService(){
-        return  new UserDetailsService();
+    public UserDetailsServices userDetailsService(){
+        return  new UserDetailsServices();
     }
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){

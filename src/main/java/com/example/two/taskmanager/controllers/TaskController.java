@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/task")
@@ -48,7 +50,7 @@ public class TaskController {
         User user = userServices.findByEmail(principal.getName());
         task.setUser(user);
         taskRepository.save(task);
-        return "/redirect:/task/tasklist";
+        return "redirect:/task/tasklist";
     }
     @PostMapping("/tasks/updateStatus")
     public String updateTaskStatus(@RequestParam("taskId") Long taskId, @RequestParam("status") String status){
@@ -62,7 +64,7 @@ public class TaskController {
     }
 
 
-    @GetMapping("/edit/{taskId}")
+    @GetMapping("/editTask/{taskId}")
     public String showEditTaskForm(@PathVariable Long taskId, Model model){
         Task task = taskServices.getTaskById(taskId);
         if (task==null){
@@ -72,7 +74,7 @@ public class TaskController {
         return "user/editTask";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/editTask/{taskId}")
     public String editTask(@ModelAttribute Task task){
         if(task.getId()==null){
             throw new IllegalArgumentException("The given id must not be null");
@@ -86,4 +88,29 @@ public class TaskController {
         taskRepository.deleteById(taskId);
         return "redirect:/task/tasklist";
     }
+
+    @GetMapping("/stats")
+    @ResponseBody
+    public Map<String, Long> getTaskStats(Principal principal) {
+        User user = userServices.findByEmail(principal.getName());
+        List<Task> userTasks = taskRepository.findByUser(user);
+
+        return userTasks.stream()
+                .collect(Collectors.groupingBy(
+                        task -> task.getStatus().name(),
+                        Collectors.counting()
+                ));
+    }
+
+    @GetMapping("/latest")
+    @ResponseBody
+    public List<Task> getLatestTasks(Principal principal) {
+        User user = userServices.findByEmail(principal.getName());
+        return taskRepository.findTop5ByUserOrderByStartDateDesc(user);
+    }
+
+
 }
+
+
+

@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 public class AdminController {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @GetMapping("/admin")
     public String listUsers (Model model){
@@ -27,6 +27,12 @@ public class AdminController {
     }
 
     @GetMapping("/admin/add")
+    public String showAddUserForm(Model model){
+        model.addAttribute("user",new User());
+        return "admin/add";
+    }
+
+    @PostMapping("/admin/add")
     public String addUser(@Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("user", user);
@@ -42,11 +48,9 @@ public class AdminController {
     }
 
     @PostMapping("/admin/delete/{userId}")
-    public String deleteUser(@PathVariable Long userId, Model model){
-        User user = userRepository.findById(userId)
-                .orElseThrow(()-> new IllegalArgumentException("Invalid ID korisnika: "+ userId));
-        model.addAttribute("user",user);
-        return "admin/edit";
+    public String deleteUser(@PathVariable Long userId){
+        userRepository.deleteById(userId);
+        return "redirect:/admin";
 
     }
 

@@ -41,6 +41,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
+
+
     //Constructor
     public User(Long id, String name, String surname, String email, String password, String passwordConfirm) {
         this.id=id;
@@ -49,6 +51,8 @@ public class User {
         this.email=email;
         this.password=password;
         this.passwordConfirm=passwordConfirm;
+
+        roles.add(Role.USER);
     }
 
     public User() {
@@ -111,6 +115,8 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+
 
     //Method for checking password
     @AssertTrue(message = "Lozinke se moraju podudarati")

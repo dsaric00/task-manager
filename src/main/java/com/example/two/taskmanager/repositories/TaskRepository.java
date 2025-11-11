@@ -9,12 +9,18 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    @Query("SELECT t FROM Task t WHERE t.status = :status")
+   // @Query("SELECT t FROM Task t WHERE t.status = :status")
     List<Task> findTasksByStatus(@Param("status") String status);
 
-    @Query("SELECT t FROM Task t WHERE t.title LIKE %:title%")
+    //@Query("SELECT t FROM Task t WHERE t.title LIKE %:title%")
     List<Task> searchTasksByTitle(@Param("title") String title);
 
     List<Task> findByUser(User user);
+
+    List<Task> findTop5ByUserOrderByStartDateDesc(User user);
+
+
+
+
 
 }

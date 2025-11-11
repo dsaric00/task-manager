@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskServices {
@@ -58,4 +60,15 @@ public class TaskServices {
         existingTask.setStatus(updateTask.getStatus());
         taskRepository.save(existingTask);
     }
+
+    public Map<String, Long> getTaskStats() {
+        List<Task> tasks = taskRepository.findAll();
+        return tasks.stream()
+                .collect(Collectors.groupingBy(
+                        t -> t.getStatus() == null ? "UNKNOWN" : t.getStatus().name(), // key kao String
+                        Collectors.counting()
+                ));
+    }
+
+
 }
